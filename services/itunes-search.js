@@ -5,11 +5,12 @@ module.exports = async () =>{
     //could also get this from .env file :)
     const iTunesAPI = 'https://itunes.apple.com/search?';  
 
-    const searchItunes = async (value, limit) => { 
+    const searchItunes = async (value, limit) => {  
         try {
             let arrayOfResult = {};
-            //call api to get data
+            //call itunes api to get data
             const {data} = await axios.post(iTunesAPI + `term=${value}&limit=${limit}`) 
+
             //loop over the data and create media type
             for(item in data.results){   
                 //check if "kind" exists!!!!
@@ -18,8 +19,12 @@ module.exports = async () =>{
                     if( !arrayOfResult[data.results[item].kind] )
                         arrayOfResult[data.results[item].kind] = []; //append an empty array
                     
-                    //push data to the array
-                    arrayOfResult[data.results[item].kind].push(data.results[item])
+                    //get required fields: id, name, artwork, genre, url
+                    let {trackId, trackName, artworkUrl100, primaryGenreName, trackViewUrl } = data.results[item]
+                    //push fields to the array
+                    arrayOfResult[data.results[item].kind].push(
+                        {artworkUrl100, trackViewUrl, trackId, trackName, primaryGenreName}
+                    )
                 }
             }
             return arrayOfResult 

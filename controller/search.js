@@ -7,7 +7,7 @@ const search = async (req, res, next) => {
         const result = await service.searchItunes(searchVal, limit); 
         res.status(200).json(result)
     } catch (error) {
-        res.status(500);
+        res.status(500); 
         throw error
     }
 } 
