@@ -1,4 +1,4 @@
-# itunes-search
+# itunes-search API
 
 ## Project setup
 ```
@@ -9,3 +9,5 @@ npm install
 ```
 node index.js
 ```
+
+ 
